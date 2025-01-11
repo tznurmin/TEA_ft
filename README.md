@@ -1,6 +1,46 @@
 # Fine-tune with TEA
 
-This repository provides an example script (tea_ft.py) to fine-tune BioBERT base cased v1.2 models with various TEA datasets by using Hugging Face machine learning libraries.
+This repository provides an example script (tea_ft.py) to fine-tune BioBERT base cased v1.2 models with various TEA datasets by using Hugging Face machine learning libraries. An example result set from running the script for Pathogen Identifier and Strain Tagger corpora is provided below (median results for augmentation experiment/six random seeds/two epochs). The performance is measured by two different test datasets. Regular test dataset contains the baseline examples, while the enriched dataset has similar examples with approximately seven times more unique species and strain names, and can therefore be considered to measure potential overfitting to the species and strain names.
+
+### Pathogen identifier dataset
+
+<table>
+<tr><th>Baseline test dataset</th><th>Enriched test dataset</th></tr>
+<tr><td>
+
+| Training dataset | Loss    | Precision | Recall | F1     |
+|------------------|---------|-----------|--------|--------|
+| Augmented        | 0.01    | 0.516     | 0.474  | 0.491  |
+| Unaugmented      | 0.007   | 0.566     | 0.61   | 0.586  |
+
+</td><td>
+
+| Training dataset | Loss    | Precision | Recall | F1     |
+|------------------|---------|-----------|--------|--------|
+| Augmented        | 0.015   | 0.607     | 0.588  | 0.597  |
+| Unaugmented      | 0.022   | 0.472     | 0.18   | 0.262  |
+
+</td></tr></table>
+
+### Strain tagger dataset
+
+<table>
+<tr><th>Baseline test dataset</th><th>Enriched test dataset</th></tr>
+<tr><td>
+
+| Training dataset | Loss    | Precision | Recall | F1     |
+|------------------|---------|-----------|--------|--------|
+| Augmented        | 0.032   | 0.567     | 0.534  | 0.551  |
+| Unaugmented      | 0.026   | 0.553     | 0.56   | 0.561  |
+
+</td><td>
+
+| Training dataset | Loss    | Precision | Recall | F1     |
+|------------------|---------|-----------|--------|--------|
+| Augmented        | 0.036   | 0.665     | 0.748  | 0.706  |
+| Unaugmented      | 0.049   | 0.632     | 0.529  | 0.572  |
+
+</td></tr></table>
 
 **Please note**: it is very important to fix the broken tokenizer in BioBERT base cased v1.2 distribution as by default it functions in uncased mode. The script takes care of this by forcing the toknizer into cased mode, but you can also use a working tokenizer configuration file from BioBERT base cased v1.1 repository – if needed.
 
