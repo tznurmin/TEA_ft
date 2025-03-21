@@ -46,7 +46,7 @@ This repository provides an example script (tea_ft.py) to fine-tune BioBERT base
 
 # Installation
 
-First step to fine-tune the models is to download the TEA datasets from the GitHub repository. This can be done easily by running the following command in the project root directory (creates the required TEA_datasets directory):
+First step to fine-tune the models is to download the TEA datasets from the GitHub repository. This can be done easily by running the following command in the project root directory (creates the required TEA_datasets directory; optionally remove .git from TEA_datasets after cloning):
 
 ```bash
 git clone https://github.com/tznurmin/TEA_datasets.git
