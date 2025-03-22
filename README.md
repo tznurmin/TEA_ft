@@ -94,7 +94,7 @@ Use tea_ft.py to run the fine-tuning experiments once the dependencies are avail
 
 The fine-tuning script requires two mandatory arguments: --type (pathogens or strains) to select experiment type and --experiment (augmentation, strategy, mix1, mix2 or mix3) to select the experiment. 
 
-There are a few optional arguments, such as the used random seed (--seed), the number of epochs (-epochs) and the used batch size (--batch_size). See --h for help when running the script.
+There are a few optional arguments, such as the used random seed (--seed), the number of epochs (--epochs) and the used batch size (--batch_size). See --h for help when running the script.
 
 For example, pathogens augmentation experiment is run with seed 42:
 
