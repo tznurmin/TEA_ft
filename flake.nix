@@ -1,12 +1,12 @@
 {
-  description = "CUDA support for fine-tuning experiments with TEA";
+  description = "Environment for TEA fine-tuning experiments";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -16,19 +16,25 @@
             cudaSupport = true;
           };
         };
-        buildInputs = [
-          pkgs.cudatoolkit
-          pkgs.python38
-          pkgs.zlib
-        ];
-      in
-      {
-        devShell = pkgs.mkShell {
-          inherit buildInputs;
 
+        pythonEnv = pkgs.python3.withPackages (ps: with ps; [
+          transformers
+          datasets
+          torchWithCuda
+          evaluate
+          seqeval
+          accelerate
+        ]);
+
+      in {
+        devShell = pkgs.mkShell {
+          buildInputs = [
+            pythonEnv
+            pkgs.cudaPackages.cudatoolkit
+            pkgs.cudatoolkit
+          ];
           shellHook = ''
-            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.cudatoolkit pkgs.stdenv.cc.cc.lib pkgs.zlib]}:$LD_LIBRARY_PATH"
-            export LD_LIBRARY_PATH="/run/opengl-driver/lib:$LD_LIBRARY_PATH"
+            echo "READY."
           '';
         };
       });
